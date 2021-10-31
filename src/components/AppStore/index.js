@@ -294,30 +294,49 @@ const appsList = [
 ]
 
 class AppStore extends Component {
-  state = {activeTab: tabsList[0].tabId}
-
-  getTabApps = () => {
-    const {activeTab} = this.state
-    const displayApps = appsList.filter(
-      eachItem => eachItem.category === activeTab,
-    )
-    return displayApps
-  }
+  state = {activeTab: tabsList[0].tabId, searchInput: ''}
 
   updateTab = tabId => {
     this.setState({activeTab: tabId})
   }
 
-  render() {
+  onChangeSearchInput = event => {
+    this.setState({searchInput: event.target.value})
+  }
+
+  getSearchResults = () => {
+    const {searchInput} = this.state
+    const searchResults = appsList.filter(eachApp =>
+      eachApp.appName.toLowerCase().includes(searchInput.toLowerCase()),
+    )
+    return searchResults
+  }
+
+  getTabApps = searchedApps => {
     const {activeTab} = this.state
-    const filteredApps = this.getTabApps()
+    const displayApps = searchedApps.filter(
+      eachItem => eachItem.category === activeTab,
+    )
+    return displayApps
+  }
+
+  render() {
+    const {activeTab, searchInput} = this.state
+    const searchResults = this.getSearchResults()
+    const filteredApps = this.getTabApps(searchResults)
 
     return (
       <div className="appstore-bg-container">
         <div className="appstore-container">
-          <h1 className="main-heading"> AppStore</h1>
+          <h1 className="main-heading"> App Store</h1>
           <div className="input-container">
-            <input type="search" className="input-box" placeholder="Search" />
+            <input
+              type="search"
+              className="input-box"
+              value={searchInput}
+              onChange={this.onChangeSearchInput}
+              placeholder="Search"
+            />
             <img
               src="https://assets.ccbp.in/frontend/react-js/app-store/app-store-search-img.png"
               alt="search icon"
@@ -329,7 +348,8 @@ class AppStore extends Component {
               <TabItem
                 key={eachTab.tabId}
                 tabsList={eachTab}
-                getTabApps={this.getTabApps}
+                updateTab={this.updateTab}
+                isActive={eachTab.tabId === activeTab}
               />
             ))}
           </ul>
