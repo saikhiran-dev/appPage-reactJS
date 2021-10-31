@@ -1,5 +1,5 @@
 .appstore-bg-container {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   background-image: linear-gradient(to bottom, #fff1eb, #ace0f9);
@@ -8,31 +8,56 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  width: 85%;
+  max-width: 1110px;
 }
 .main-heading {
   font-family: 'Bree Serif';
+  color: #1e293b;
+  margin-top: 64px;
+  margin-bottom: 48px;
+  font-size: 40px;
 }
+@media screen and (min-width: 768px) {
+  .main-heading {
+    font-size: 48px;
+    margin-top: 96px;
+  }
+}
+
 .input-container {
   display: flex;
   align-items: center;
-  border: 2px solid #7b8794;
+  justify-content: space-between;
+  border: 1px solid #7b8794;
   border-radius: 5px;
+  width: 100%;
+  max-width: 250px;
+  height: 37px;
+  padding: 16px 8px;
 }
 .input-box {
+  font-family: 'Roboto';
   border: none;
   outline: none;
   background-color: transparent;
   font-size: 12px;
   font-weight: bold;
-  padding: 7px;
+  flex-grow: 1;
 }
 .search-icon {
   width: 20px;
 }
 .tab-container {
   display: flex;
+  align-items: flex-end;
+  padding-left: 0px;
 }
 .apps-container {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
+  padding-left: 0px;
+  width: 100%;
 }
